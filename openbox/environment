@@ -1,0 +1,27 @@
+#
+# Set system-wide environment variables here for Openbox
+# User-specific variables should be placed in $HOME/.config/openbox/environment
+#
+
+# To set your language for displaying messages and time/date formats, use the following:
+#LANG=en_CA.UTF8
+
+# To set your keyboard layout, you need to modify your X config:
+# http://www.google.com/search?q=how+to+set+keyboard+layout+xorg
+export PATH=$PATH:/usr/bin
+
+# ibus
+#export GTK_IM_MODULE=ibus
+#export XMODIFIERS=@im=ibus
+#export QT_IM_MODULE=ibus
+
+# set askpass application to show dialog to input
+# password
+#
+# 1. x11-ssh-askpass
+#export SSH_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
+#export SUDO_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
+# 2 lxqt-openssh-askpass
+#   better look
+#export SSH_ASKPASS=/usr/bin/lxqt-openssh-askpass
+#export SUDO_ASKPASS=/usr/bin/lxqt-openssh-askpass

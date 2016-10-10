@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu>
+    <menu id="root-menu"
+          label="OpenBox 3"
+          execute="obmenu-generator -i" />
+	</menu>
+          <!--execute="/usr/bin/openbox-menu gnome-applications.menu" /-->
+</openbox_menu>
+

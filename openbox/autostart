@@ -1,0 +1,83 @@
+#
+# These things are run when an Openbox X Session is started.
+# You may place a similar script in $HOME/.config/openbox/autostart
+# to run user-specific things.
+#
+
+# If you want to use GNOME config tools...
+#
+#if test -x /usr/lib/openbox/gnome-settings-daemon >/dev/null; then
+#  /usr/lib/openbox/gnome-settings-daemon &
+#elif which gnome-settings-daemon >/dev/null 2>&1; then
+#  gnome-settings-daemon &
+#fi
+
+# If you want to use XFCE config tools...
+#
+#xfce-mcs-manager &
+
+# XXX
+
+# set keyboard key repeat delay
+# otherwise it would be too long
+xset r rate 200
+
+# pcmanfm
+# - mount usb automatically
+pcmanfm --daemon-mode & # without desktop
+# - manage desktop with pcmanfm
+#pcmanfm --desktop & # with desktop
+
+# compton with faster window animation than default
+compton --backend glx -b -I 0.07 -O 0.07
+
+# panel
+tint2 &
+
+# volume control
+volwheel &
+
+# network applet
+nm-applet --sm-disable &
+
+# set background
+#feh --bg-scale ~/Pictures/DSCF4002.JPG
+$HOME/.fehbg &
+
+# use caps as left ctrl
+setxkbmap -option "ctrl:nocaps" &
+
+# noitfication daemon to show notification
+dunst &
+
+# show windows like expose of OS X
+skippy-xd --start-daemon &
+
+# use ibus to change language of keyboard
+ibus-daemon -rd &
+
+# dropbox
+#
+# systemd service which is included in dropbox package by default
+# does not show icon in system tray
+dbus-launch dropbox start &
+
+# lock and try to suspend after 10 minutes in idle state (no user input)
+# suspend is going to be settled if no AC connected
+xautolock -time 10 -locker "~/bin/suspend.sh -p -l ~/bin/lock.sh" &
+
+# disable xautolock/screensaver if current window
+# is full-screened or clicked in system tray
+/usr/bin/caffeine &
+
+# open terminal when startup
+urxvt -e $SHELL -c 'screenfetch; $SHELL -i' &
+
+# XXX
+
+### archives
+
+#if which dbus-launch > /dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+#	eval `dbus-launch --sh-syntax --exit-with-session`
+#fi
+#dbus-update-activation-environment --all

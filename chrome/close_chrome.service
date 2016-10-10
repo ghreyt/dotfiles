@@ -1,0 +1,16 @@
+
+#
+# https://www.reddit.com/r/archlinux/comments/4dpets/properly_shutdown_chromium_fixes_some_cases_of_a/
+#
+
+[Unit]
+Description=Manage Chrome
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStop=/usr/local/bin/stop_chrome
+
+[Install]
+WantedBy=default.target
