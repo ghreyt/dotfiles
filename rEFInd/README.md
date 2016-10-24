@@ -25,6 +25,15 @@ $ /usr/bin/refind-install
 ```
 # ***custom configuration***
 
+# system resolution
+resolution 1920 1080
+
+# no boot information at all (comment this to debug)
+use_graphics_for linux,windows
+
+# enable touch
+enable_touch 1
+
 # to show manual first
 scanfor manual,internal
 

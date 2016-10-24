@@ -18,27 +18,34 @@
 
 # XXX
 
+# compton with faster window animation than default
+#compton --backend glx -b -I 0.07 -O 0.07
+compton --backend glx --vsync opengl -b -I 0.07 -O 0.07
+
 # set keyboard key repeat delay
 # otherwise it would be too long
 xset r rate 200
 
 # pcmanfm
 # - mount usb automatically
-pcmanfm --daemon-mode & # without desktop
+#   without desktop
+#pcmanfm --daemon-mode &
 # - manage desktop with pcmanfm
 #pcmanfm --desktop & # with desktop
-
-# compton with faster window animation than default
-compton --backend glx -b -I 0.07 -O 0.07
 
 # panel
 tint2 &
 
 # volume control
-volwheel &
+#volwheel &
+# pnmixer is better since it supports thoes below by default
+# - volume notification
+# - theme
+pnmixer &
 
 # network applet
-nm-applet --sm-disable &
+# this is started by /etc/xdg/autostart/nm-applet.desktop
+#nm-applet --sm-disable &
 
 # set background
 #feh --bg-scale ~/Pictures/DSCF4002.JPG
@@ -68,10 +75,10 @@ xautolock -time 10 -locker "~/bin/suspend.sh -p -l ~/bin/lock.sh" &
 
 # disable xautolock/screensaver if current window
 # is full-screened or clicked in system tray
-/usr/bin/caffeine &
+#/usr/bin/caffeine &
 
 # open terminal when startup
-urxvt -e $SHELL -c 'screenfetch; $SHELL -i' &
+#urxvt -e $SHELL -c 'screenfetch; $SHELL -i' &
 
 # XXX
 

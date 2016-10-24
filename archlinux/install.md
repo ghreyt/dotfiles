@@ -91,8 +91,10 @@ distro based on it) so do not expect it fit into everyone.
    $ ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime
    $ hwclock --systohc
 
-   # install vim
-   $ pacman -S vim
+   # install packages really needed during next steps or after reboot
+   $ pacman -S vim \ # otherwise only vi
+               dialog wpa_supplicant # to use wifi-menu (GUI for netctl)
+               
 
    # locale
    $ vim /etc/locale.gen

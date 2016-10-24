@@ -3,7 +3,7 @@
 ## install
 
 ``` shell
-$ pacaur -S i3lock-fancy
+$ pacaur -S i3lock-fancy-git
 
 ```
 
@@ -16,5 +16,5 @@ $ pacaur -S i3lock-fancy
 ## enable service
 
 ``` shell
-$ systemctl enable lock.suspend@yolongyi.service
+$ systemctl enable lock.suspend@ghreyt.service
 ```

@@ -16,6 +16,50 @@
    [install-pacaur.sh](https://gist.github.com/rumpelsepp/d646750910be19332753)
 1. install desktop enviroment
 
+## desktop environment
+
+``` shell
+$ pacaur -S openbox lxdm tint2 compton rxvt-unicode dunst oblogout obconf lxappearance lxappearance-obconf lxrandr lxinpu pcmanfm \
+rofi
+network-manager-applet
+gnome-keyring # otherwise no password prompt
+feh
+xautolock
+ibus
+ibus-hangul
+noto-fonts-cjk
+unzip
+openssh
+alsa-utils
+smplayer
+smplayer-skins
+smplayer-themes
+smtube
+pnmixer
+
+# screenshot
+maim
+slop
+
+# aur
+            skippy-xd-git i3lock-fancy-git notify-send.sh
+caffeine-ng
+xorg-xbacklight
+
+thunar
+tumbler
+thunar-media-tags-plugin
+thunar-archive-plugin
+ffmpegthumbnailer: for video thumbnails
+poppler-glib: for PDF thumbnails
+libgsf: for ODF thumbnails
+libopenraw: for RAW thumbnail
+
+xdg-user-dirs
+# run xdg-user-dirs-update to create user directories
+
+```
+
 ## powersave
 
 ### install
@@ -49,4 +93,11 @@ $ systemctl enable powertop.service
 # /etc/sysctl.d/laptop.conf
 
 vm.laptop_mode = 5
+```
+
+
+
+## more
+```
+xorg-xinput
 ```
