@@ -1,0 +1,122 @@
+" vim configuartion
+" -----------------
+" * for at least vim8
+
+" copied from defaults.vim
+" ------------------------
+set nocompatible " Use Vim settings, rather than Vi settings (much better!).
+                 " This must be first, because it changes other options as a side effect.
+set backspace=indent,eol,start " Allow backspacing over everything in insert mode.
+set history=200	" keep 200 lines of command line history
+set ruler " show the cursor position all the time
+set showcmd	" display incomplete commands
+set wildmenu " display completion matches in a status line
+set ttimeout " time out for key codes
+set ttimeoutlen=100	" wait up to 100ms after Esc for special key
+set display=truncate " Show @@@ in the last line if it is truncated.
+if has('reltime') " Do incremental searching when it's possible to timeout.
+  set incsearch
+endif
+set nrformats-=octal " Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
+                     " confusing.
+" Switch syntax highlighting on when the terminal has colors or when using the
+" GUI (which always has colors).
+if &t_Co > 2 || has("gui_running")
+  " Revert with ":syntax off".
+  syntax on
+
+  " I like highlighting strings inside C comments.
+  " Revert with ":unlet c_comment_strings".
+  let c_comment_strings=1
+endif
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  " Revert with ":filetype off".
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that you can revert them with:
+  " ":augroup vimStartup | au! | augroup END"
+  augroup vimStartup
+    au!
+
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim).
+    autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+
+  augroup END
+
+endif " has("autocmd")
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+" Revert with: ":delcommand DiffOrig".
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
+
+" cutomized
+" ---------
+set hlsearch
+set bg=dark
+" set tabwidth 4 spaces
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+map <C-h> gT " previous tab
+map <C-l> gt " next tab
+
+" erlang
+" ------
+autocmd FileType erlang set ts=2
+autocmd FileType erlang set sts=2
+autocmd FileType erlang set sw=2
+
+" javascript
+" ----------
+autocmd FileType javascript
+            \ set ts=2 |
+            \ set sts=2 |
+            \ set sw=2 |
+            \ set expandtab |
+            \ set autoindent |
+            \ set fileformat=unix |
+
+" python
+" ------
+" * https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
+autocmd BufNewFile,BufRead *.py
+            \ set ts=4 |
+            \ set sts=4 |
+            \ set sw=4 |
+            \ set textwidth=79 |
+            \ set expandtab |
+            \ set autoindent |
+            \ set fileformat=unix |
+
+" virtual env support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+" packages
+" --------
+" * use vim native package manager
+"   ref: https://shapeshed.com/vim-packages/
+
+" vim: set ts=2 sts=2 sw=2 et:
