@@ -61,15 +61,15 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; make sure to have downloaded archive description.
 (ensure-package-installed 'evil ; vim emulation
-						  'tabbar ; show tab on top of the editor
-						  'helm ; better search UI
-						  'evil-magit ; git
-						  'git-gutter ; show git status for each line in file
-						  'powerline-evil ; beautify bottom status bar
+                          'tabbar ; show tab on top of the editor
+                          'helm ; better search UI
+                          'evil-magit ; git
+                          'git-gutter ; show git status for each line in file
+                          'powerline-evil ; beautify bottom status bar
                           'flycheck ; flycheck to check syntax on the fly
                           'flycheck-tip
-						  'markdown-mode ; markdown
-						  'edts ; erlang
+                          'markdown-mode ; markdown
+                          'edts ; erlang
                           'go-mode ; go
                           'go-autocomplete
                           'go-eldoc
@@ -78,6 +78,7 @@ Return a list of installed packages or nil for every skipped package."
                           'deft ; write document
                           'popup-imenu
                           'dired+
+                          'indent-guide ; show indentation line
 						  )
 
 
@@ -189,6 +190,13 @@ Return a list of installed packages or nil for every skipped package."
 ;;; ------
 (require 'dired+)
 (diredp-toggle-find-file-reuse-dir 1)
+
+
+;;; indent-guide
+;;; ------------
+(require 'indent-guide)
+(indent-guide-global-mode)
+(setq indent-guide-recursive t)
 
 
 ;;; evil-magit
@@ -353,7 +361,7 @@ Return a list of installed packages or nil for every skipped package."
 ;;; -------
 ;;; * ide support for go
 ;;; * https://github.com/dominikh/go-mode.el
-(require 'go-mode-autoloads)
+;(require 'go-mode-autoloads)
 (require 'go-guru)
 (defun my-go-mode-hook ()
   ; Call Gofmt before saving                                                    
@@ -459,6 +467,58 @@ Return a list of installed packages or nil for every skipped package."
 ;;; -----------------------------------------------------------------------------------------------
 ;;; testing
 ;;; -----------------------------------------------------------------------------------------------
+
+;;; -----------------------------------------------------------------------------------------------
+;;; C/C++
+;;; -----------------------------------------------------------------------------------------------
+;;; http://tuho.github.io/c-ide.html#orgheadline1
+
+;;; helm-gtags
+;;; ----------
+(setq
+ helm-gtags-ignore-case t
+ helm-gtags-auto-update t
+ helm-gtags-use-input-at-cursor t
+ helm-gtags-pulse-at-cursor t
+ helm-gtags-prefix-key "\C-cg"
+ helm-gtags-suggested-key-mapping t
+ )
+
+(require 'helm-gtags)
+;; Enable helm-gtags-mode
+(add-hook 'dired-mode-hook 'helm-gtags-mode)
+(add-hook 'eshell-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c++-mode-hook 'helm-gtags-mode)
+(add-hook 'asm-mode-hook 'helm-gtags-mode)
+
+(define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
+(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+(define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+(define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+(define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
+
+;;; function-args
+;;; -------------
+(fa-config-default)
+
+;;; sr-speedbar
+;;; -----------
+(define-key helm-gtags-mode-map (kbd "C-c t") 'sr-speedbar-toggle)
+
+;;; company-mode
+;;; ------------
+(defun my-c-mode-common-hook()
+  "my-c-mode-common-hook"
+  (company-mode t)
+  (setq company-backends (delete 'company-semantic company-backends))
+  (add-to-list 'company-backends 'company-c-headers)
+  (add-to-list 'company-c-headers-path-system "/usr/include/c++/4.8/")
+  (define-key c-mode-map  [(tab)] 'company-complete)
+  (define-key c++-mode-map  [(tab)] 'company-complete)
+  )
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 
 ;;; flymd
