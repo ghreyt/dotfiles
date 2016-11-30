@@ -34,7 +34,7 @@
     <!-- with Smart placement on a multi-monitor system, try to place new windows
        on: 'Any' - any monitor, 'Mouse' - where the mouse is, 'Active' - where
        the active window is, 'Primary' - only on the primary monitor -->
-    <primaryMonitor>1</primaryMonitor>
+    <primaryMonitor>Active</primaryMonitor>
     <!-- The monitor where Openbox should place popup dialogs such as the
        focus cycling popup, or the desktop switch popup.  It can be an index
        from 1, specifying a particular monitor.  Or it can be one of the
@@ -159,7 +159,7 @@
     <right>0</right>
   </margins>
   <dock>
-    <position>BottomLeft</position>
+    <position>Top</position>
     <!-- (Top|Bottom)(Left|Right|)|Top|Bottom|Left|Right|Floating -->
     <floatingX>0</floatingX>
     <floatingY>0</floatingY>
@@ -349,7 +349,7 @@
                       -color-window "#2f2f2f, #f4f4f4"
                       -color-normal "#2f2f2f, #f4f4f4, #2f2f2f, #2f2f2f, #888888"
                       -font "Noto Sans 13"</command>
-	          <!-- old color setting
+        <!-- old color setting
 	     	      -color-window "#2f343f, #f3f4f5"
 		      -color-normal "#2f343f, #f3f4f5, #2f343f, #2f343f, #9575cd"
                   -->
@@ -404,26 +404,26 @@
     <!-- volume -->
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-      	<!-- pnmixer does not require manual notification
+        <!-- pnmixer does not require manual notification
         <command>~/bin/control_volume.sh up</command>
 	-->
-	<command>/usr/bin/amixer -q set Master 0.3dB+ unmute</command>
+        <command>/usr/bin/amixer -q set Master 0.3dB+ unmute</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-      	<!-- pnmixer does not require manual notification
+        <!-- pnmixer does not require manual notification
         <command>~/bin/control_volume.sh down</command>
 	-->
-	<command>/usr/bin/amixer -q set Master 0.3dB- unmute</command>
+        <command>/usr/bin/amixer -q set Master 0.3dB- unmute</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
-      	<!-- pnmixer does not require manual notification
+        <!-- pnmixer does not require manual notification
         <command>~/bin/control_volume.sh mute</command>
 	-->
-	<command>/usr/bin/amixer -q set Master toggle</command>
+        <command>/usr/bin/amixer -q set Master toggle</command>
       </action>
     </keybind>
     <!-- move and resize windows -->
