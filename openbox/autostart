@@ -80,6 +80,9 @@ xautolock -time 10 -locker "~/bin/suspend.sh -p -l ~/bin/lock.sh" &
 # open terminal when startup
 #urxvt -e $SHELL -c 'screenfetch; $SHELL -i' &
 
+# warmup menu generation
+obmenu-generator -i > /dev/null 2> /dev/null &
+
 # XXX
 
 ### archives
