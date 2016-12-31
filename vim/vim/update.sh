@@ -16,6 +16,7 @@ PLUGINS=( \
     https://github.com/kien/ctrlp.vim \
     https://github.com/airblade/vim-gitgutter \
     https://github.com/jmcantrell/vim-virtualenv \
+    https://github.com/nathanaelkane/vim-indent-guides \
     )
 
 cd $START_DIR
