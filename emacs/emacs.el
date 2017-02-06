@@ -473,10 +473,31 @@ Return a list of installed packages or nil for every skipped package."
 ;;; -----------------------------------------------------------------------------------------------
 ;;; C/C++
 ;;; -----------------------------------------------------------------------------------------------
-;;; http://tuho.github.io/c-ide.html#orgheadline1
+
+;;; https://www.emacswiki.org/emacs/CProgrammingLanguage
+
+;;; cc-mode
+;;; -------
+(require 'cc-mode)
+
+;;; c indentation
+;;; -------------
+;;; * c indentation style 'gnu'
+;;;     - https://www.emacswiki.org/emacs/IndentingC
+;;; * set indent level 4
+(setq c-default-style "gnu"
+      c-basic-offset 4)
+
+;;; http://tuho.github.io/c-ide.html
 
 ;;; helm-gtags
 ;;; ----------
+;;; * shortcuts
+;;;     - M-. : follow
+;;;     - M-, : back (after follow)
+;;;     - C-c g r : find references for functions
+;;;     - C-c g s : find references for variables 
+;;;     - C-c g a : find functions that current functions call
 (setq
  helm-gtags-ignore-case t
  helm-gtags-auto-update t
@@ -503,25 +524,45 @@ Return a list of installed packages or nil for every skipped package."
 
 ;;; function-args
 ;;; -------------
+;;; * used for moo-jump-local
+;;;     - C-M-k
 (fa-config-default)
 
 ;;; sr-speedbar
 ;;; -----------
 (define-key helm-gtags-mode-map (kbd "C-c t") 'sr-speedbar-toggle)
 
-;;; company-mode
-;;; ------------
-(defun my-c-mode-common-hook()
-  "my-c-mode-common-hook"
-  (company-mode t)
-  (setq company-backends (delete 'company-semantic company-backends))
-  (add-to-list 'company-backends 'company-c-headers)
-  (add-to-list 'company-c-headers-path-system "/usr/include/c++/4.8/")
-  (define-key c-mode-map  [(tab)] 'company-complete)
-  (define-key c++-mode-map  [(tab)] 'company-complete)
-  )
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+;;; company
+;;; -------
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+;; use clang for completion
+(setq company-backends (delete 'company-semantic company-backends))
+(define-key c-mode-map [(tab)] 'company-complete)
+(define-key c++-mode-map [(tab)] 'company-complete)
+;; add this to .dir-locals.el to complete candidates for the project
+;;(require 'company-clang)
+;;(
+;; (nil . ((company-clang-arguments . ("-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/"
+;;                                     ))))
+;; )
 
+(semantic-add-system-include "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/")
+
+;;; company-c-headers
+;;; -----------------
+;;; * for completion c++ header files
+(require 'company-c-headers)
+(add-to-list 'company-backends 'company-c-headers)
+;; add this to .dir-locals.el
+(add-to-list 'company-c-headers-path-system "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1/")
+;;(add-to-list 'company-c-headers-path-user "/usr/include/c++/4.8/")
+
+
+
+;;; -----------------------------------------------------------------------------------------------
+;;; Etc
+;;; -----------------------------------------------------------------------------------------------
 
 ;;; flymd
 ;;; -----
