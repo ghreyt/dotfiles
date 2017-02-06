@@ -292,6 +292,8 @@ Return a list of installed packages or nil for every skipped package."
 ;;; edts
 ;;; ----
 ;;; * ide support for Erlang
+;;; * run :edts-compile-deps manually when it raise exception at the first run
+;;; * use 256 colors term for better syntax highlight
 ;;; * some convenient keys
 ;;;     - M-. : follow
 ;;;     - M-, : follow back
