@@ -8,10 +8,14 @@
 xcursor.theme:            Vanilla-DMZ
 
 ! URxvt config
-URxvt*termName:           rxvt-16color
+!URxvt*termName:           rxvt-16color
+URxvt*termName:           rxvt-256color
 
+URxvt.geometry:           110x35
 URxvt.scrollBar:          off
-URxvt.font:               xft:monaco:size=10:antialias=true
+!URxvt.font:               xft:monaco:size=10:antialias=true
+URxvt.font:               xft:D2Coding:size=11:antialias=true:Regular
+URxvt.boldFont:           xft:D2Coding:size=11:antialias=true:Bold
 URxvt.internalBorder:     0
 URxvt*selectToClipboard:  true
 URxvt*saveLines:          10000
@@ -62,3 +66,4 @@ URxvt*color15:            #eeeeec
 ! ibus
 URxvt.inputMethod:        ibus
 URxvt.preeditType:        OverTheSpot
+URxvt.imLocale:           ko_KR.UTF-8
