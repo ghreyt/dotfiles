@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# This script should be copied into /usr/bin/
+# to resolve wrong time problem of sd card
+#
+# https://bbs.archlinux.org/viewtopic.php?id=186401
+
+mount -itvfat -oiocharset=utf8,time_offset=$((`date +%:z|sed -r 's/^(.)0?(.*):0?/\1\2*60\1/'`)) "$@"
