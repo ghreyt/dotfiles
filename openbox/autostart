@@ -33,6 +33,9 @@ xset r rate 200
 # - manage desktop with pcmanfm
 #pcmanfm --desktop & # with desktop
 
+# show removable disk in notification area
+udiskie --notify --smart-tray &
+
 # panel
 tint2 &
 
@@ -58,16 +61,20 @@ setxkbmap -option "ctrl:nocaps" &
 dunst &
 
 # show windows like expose of OS X
-skippy-xd --start-daemon &
+#skippy-xd --start-daemon &
+#
+# Skippy-xd recently crashes a lot
+# so have a go with xfdashboard
+xfdashboard --daemonize &
 
 # use ibus to change language of keyboard
-ibus-daemon -rd &
+ibus-daemon -rd --xim &
 
 # dropbox
 #
 # systemd service which is included in dropbox package by default
 # does not show icon in system tray
-dbus-launch dropbox start &
+#dbus-launch dropbox start &
 
 # lock and try to suspend after 10 minutes in idle state (no user input)
 # suspend is going to be settled if no AC connected
@@ -81,7 +88,7 @@ xautolock -time 10 -locker "~/bin/suspend.sh -p -l ~/bin/lock.sh" &
 #urxvt -e $SHELL -c 'screenfetch; $SHELL -i' &
 
 # warmup menu generation
-obmenu-generator -i > /dev/null 2> /dev/null &
+/usr/bin/obmenu-generator -i > /dev/null 2> /dev/null &
 
 # XXX
 

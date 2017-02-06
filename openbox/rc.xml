@@ -344,10 +344,9 @@
                       -line-margin 5
                       -separator-style "solid"
                       -padding 50
-                      -opacity "85"
                       -bw 0 
-                      -color-window "#2f2f2f, #f4f4f4"
-                      -color-normal "#2f2f2f, #f4f4f4, #2f2f2f, #2f2f2f, #888888"
+                      -color-window "#DF2f2f2f, #DF000000, #DF999999"
+                      -color-normal "#00000000, #DFaaaaaa, #00000000, #00000000, #FFffffff"
                       -font "Noto Sans 13"</command>
         <!-- old color setting
 	     	      -color-window "#2f343f, #f3f4f5"
@@ -363,10 +362,9 @@
                       -line-margin 5
                       -separator-style "solid"
                       -padding 50
-                      -opacity "85"
                       -bw 0 
-                      -color-window "#2f2f2f, #f4f4f4"
-                      -color-normal "#2f2f2f, #f4f4f4, #2f2f2f, #2f2f2f, #888888"
+                      -color-window "#DF2f2f2f, #DF000000, #DF999999"
+                      -color-normal "#00000000, #DFaaaaaa, #00000000, #00000000, #FFffffff"
                       -font "Noto Sans 13"</command>
       </action>
     </keybind>
@@ -375,10 +373,7 @@
     -->
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>xbacklight +5</command>
-      </action>
-      <action name="Execute">
-        <command>sh -c 'v=`xbacklight -get | cut -d'.' -f1` ;
+        <command>sh -c 'v=`xbacklight +5; xbacklight -get | cut -d'.' -f1` ;
                             notify-send.sh -r 282719 \
                                            -u low \
                                            -a brightness \
@@ -389,10 +384,7 @@
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>xbacklight -5</command>
-      </action>
-      <action name="Execute">
-        <command>sh -c 'v=`xbacklight -get | cut -d'.' -f1` ;
+        <command>sh -c 'v=`xbacklight -5; xbacklight -get | cut -d'.' -f1` ;
                             notify-send.sh -r 282719 \
                                            -u low \
                                            -a brightness \
@@ -434,13 +426,13 @@
       <action name="ToggleFullscreen"/>
     </keybind>
     <keybind key="W-c">
-      <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>center</x>
         <y>center</y>
-        <width>50%</width>
-        <height>100%</height>
       </action>
+    </keybind>
+    <keybind key="W-m">
+      <action name="Move" />
     </keybind>
     <keybind key="W-Left">
       <action name="Unmaximize"/>
@@ -517,7 +509,14 @@
     <!-- skippy-xd -->
     <keybind key="W-Tab">
       <action name="Execute">
-        <command>skippy-xd --toggle-window-picker</command>
+        <!--command>skippy-xd - -toggle-window-picker</command-->
+        <command>xfdashboard --toggle</command>
+      </action>
+    </keybind>
+    <keybind key="C-Up">
+      <action name="Execute">
+        <!--command>skippy-xd - -toggle-window-picker</command-->
+        <command>xfdashboard --toggle</command>
       </action>
     </keybind>
     <!-- end of XXX -->
