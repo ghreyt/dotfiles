@@ -4,6 +4,10 @@
 
 1. [Microcode](https://wiki.archlinux.org/index.php/Microcode)
 
+    ``` shell
+    $ pacman -S intel-ucode
+    ```
+
 ## Configure
 
 1. install frequently used packages

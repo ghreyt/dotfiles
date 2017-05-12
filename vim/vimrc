@@ -64,17 +64,8 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-" cutomized
+" customized
 " ---------
-set hlsearch
-set bg=dark
-" set tabwidth 4 spaces
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-map <C-h> gT " previous tab
-map <C-l> gt " next tab
 
 " erlang
 " ------
@@ -118,5 +109,48 @@ EOF
 " --------
 " * use vim native package manager
 "   ref: https://shapeshed.com/vim-packages/
+
+" nerdtree
+" --------
+let NERDTreeQuitOnOpen = 0
+let NERDTreeDirArrows = 1
+let NERDChristmasTree = 1
+let NERDTreeShowBookmarks = 1
+map <Leader>t <Plug>NERDTreeTabsToggle<CR>
+map <Leader>b :Bookmark<CR>
+"let g:nerdtree_tabs_open_on_console_startup = 1 " open on startup
+let g:nerdtree_tabs_no_startup_for_diff = 1
+
+" airline
+" -------
+let g:airline_powerline_fonts = 1 " make airline use symbol of font not ascii (like '<' '>' .. )
+set laststatus=2 " enable airline even with one file opened
+
+" indent-guides
+" -------------
+let g:indent_guides_enable_on_vim_startup=1
+"let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+" to resolve unknown error message
+" https://github.com/nathanaelkane/vim-indent-guides/issues/31
+colorscheme default
+hi IndentGuidesOdd  ctermbg=darkgrey
+hi IndentGuidesEven ctermbg=black
+
+
+" personal preference
+" -------------------
+"  * put at the end to overwrite anything done by modules above
+set hlsearch
+set bg=dark
+" set tabwidth 4 spaces
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+map <C-h> gT " previous tab
+map <C-l> gt " next tab
+" do not remember the last cursor position for git commit
+autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
 " vim: set ts=2 sts=2 sw=2 et:

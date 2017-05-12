@@ -71,10 +71,10 @@ Return a list of installed packages or nil for every skipped package."
                           'markdown-mode ; markdown
                           'edts ; erlang
                           'go-mode ; go
-                          'go-autocomplete
+                          ;'go-autocomplete
                           'go-eldoc
                           'elpy ; python
-                          'ensime ; scala
+                          ;'ensime ; scala
                           'deft ; write document
                           'popup-imenu
                           'dired+
@@ -119,6 +119,8 @@ Return a list of installed packages or nil for every skipped package."
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-x K") 'kill-buffer)
 
+;; hide scroll bar
+(scroll-bar-mode -1)
 
 
 ;;; evil
@@ -305,16 +307,29 @@ Return a list of installed packages or nil for every skipped package."
 ;;;     - C-c C-d e : edit all occurances in current buffer
 ;;;     - C-c C-d E : edit all occurances in current function
 ;;; * https://github.com/tjarvstrand/edts
-(setq edts-man-root "/usr/local/opt/erlang-r18-legy/lib/erlang")
+;;;
+;;; !!! if get error:
+;;;
+;;;   File mode specification error: (error EDTS: Could not start main server)
+;;;
+;;; ~/.emacs.d/edts-XXXXX/ $ make
+;;;
+;;; !!! the latest edts makes error for auto-completing in edts-shell buffer
+;;;     since 'f' can not find current path
+;;;     so installed manually from git https://github.com/tjarvstrand/edts
+;(setq edts-man-root "/usr/local/opt/erlang-r18-legy/lib/erlang")
+(setq edts-man-root "/usr/lib/erlang/")
 (add-hook 'erlang-mode-hook 'init-edts)
+;(setq edts-log-level 'debug)
+;(setq edts-api-async-node-init nil)
 (defun init-edts ()
   "initialize erlang variables and start edts"
   (setq tab-width 2)
   (setq indent-tabs-mode nil)
   (setq erlang-indent-level 2)
   (modify-syntax-entry ?_ "w") ; consider '_' as part of word
-  (require 'edts-start)
-  (edts-mode 1))
+  (require 'edts-start))
+  ;(edts-mode 1))
 
 
 ;;; -----------------------------------------------------------------------------------------------
@@ -364,7 +379,7 @@ Return a list of installed packages or nil for every skipped package."
 ;;; * ide support for go
 ;;; * https://github.com/dominikh/go-mode.el
 ;(require 'go-mode-autoloads)
-(require 'go-guru)
+(require 'go-mode)
 (defun my-go-mode-hook ()
   ; Call Gofmt before saving                                                    
   (add-hook 'before-save-hook 'gofmt-before-save)
@@ -396,9 +411,9 @@ Return a list of installed packages or nil for every skipped package."
 ;;;
 ;;;     $ go get -u github.com/constabulary/gb/...
 ;;;     $ gocode set package-lookup-mode ~/Dev/go-workspace/bin/gb
-(require 'go-autocomplete)
-(require 'auto-complete-config)
-(ac-config-default)
+;(require 'go-autocomplete)
+;(require 'auto-complete-config)
+;(ac-config-default)
 
 
 ;;; go-eldoc
@@ -445,11 +460,11 @@ Return a list of installed packages or nil for every skipped package."
 ;;;     - C+c C+c e : show errors
 ;;;     - C+c C+b ? : for sbt
 ;;; * http://ensime.github.io/
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime)
-(setq ensime-typecheck-idle-interval 2)
-(setq ensime-startup-snapshot-notification nil)
-(add-to-list 'evil-emacs-state-modes 'ensime-search-mode) ; start ensime-search in evil-emacs-mode
+;(require 'ensime)
+;(add-hook 'scala-mode-hook 'ensime)
+;(setq ensime-typecheck-idle-interval 2)
+;(setq ensime-startup-snapshot-notification nil)
+;(add-to-list 'evil-emacs-state-modes 'ensime-search-mode) ; start ensime-search in evil-emacs-mode
 
 
 ;;; popup-imenu
@@ -498,39 +513,41 @@ Return a list of installed packages or nil for every skipped package."
 ;;;     - C-c g r : find references for functions
 ;;;     - C-c g s : find references for variables 
 ;;;     - C-c g a : find functions that current functions call
-(setq
- helm-gtags-ignore-case t
- helm-gtags-auto-update t
- helm-gtags-use-input-at-cursor t
- helm-gtags-pulse-at-cursor t
- helm-gtags-prefix-key "\C-cg"
- helm-gtags-suggested-key-mapping t
- )
-
-(require 'helm-gtags)
-;; Enable helm-gtags-mode
-(add-hook 'dired-mode-hook 'helm-gtags-mode)
-(add-hook 'eshell-mode-hook 'helm-gtags-mode)
-(add-hook 'c-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
-(add-hook 'asm-mode-hook 'helm-gtags-mode)
-
-(define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
-(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
-(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-(define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-(define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-(define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
+;(setq
+; helm-gtags-ignore-case t
+; helm-gtags-auto-update t
+; helm-gtags-use-input-at-cursor t
+; helm-gtags-pulse-at-cursor t
+; helm-gtags-prefix-key "\C-cg"
+; helm-gtags-suggested-key-mapping t
+; )
+;
+;(require 'helm-gtags)
+;;; Enable helm-gtags-mode
+;(add-hook 'dired-mode-hook 'helm-gtags-mode)
+;(add-hook 'eshell-mode-hook 'helm-gtags-mode)
+;(add-hook 'c-mode-hook 'helm-gtags-mode)
+;(add-hook 'c++-mode-hook 'helm-gtags-mode)
+;(add-hook 'asm-mode-hook 'helm-gtags-mode)
+;
+;(define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+;(define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
+;(define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+;(define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+;(define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+;(define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
 
 ;;; function-args
 ;;; -------------
 ;;; * used for moo-jump-local
 ;;;     - C-M-k
-(fa-config-default)
+; why error? 
+; what is this?
+;(fa-config-default)
 
 ;;; sr-speedbar
 ;;; -----------
-(define-key helm-gtags-mode-map (kbd "C-c t") 'sr-speedbar-toggle)
+;(define-key helm-gtags-mode-map (kbd "C-c t") 'sr-speedbar-toggle)
 
 ;;; company
 ;;; -------
@@ -547,15 +564,17 @@ Return a list of installed packages or nil for every skipped package."
 ;;                                     ))))
 ;; )
 
-(semantic-add-system-include "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/")
+; if mac
+;(semantic-add-system-include "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/")
 
 ;;; company-c-headers
 ;;; -----------------
 ;;; * for completion c++ header files
-(require 'company-c-headers)
-(add-to-list 'company-backends 'company-c-headers)
+;(require 'company-c-headers)
+;(add-to-list 'company-backends 'company-c-headers)
 ;; add this to .dir-locals.el
-(add-to-list 'company-c-headers-path-system "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1/")
+; if mac
+;(add-to-list 'company-c-headers-path-system "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1/")
 ;;(add-to-list 'company-c-headers-path-user "/usr/include/c++/4.8/")
 
 
@@ -636,3 +655,17 @@ Return a list of installed packages or nil for every skipped package."
 ;;; wanderlust
 ;;; ----------
 ;(autoload 'wl "wl" "Wanderlust" t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (magit edts tabbar powerline-evil popup-imenu markdown-mode indent-guide helm go-eldoc git-gutter flycheck-tip evil-magit elpy dired+ deft))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
