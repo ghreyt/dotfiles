@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-NAME=$(basename $0)
+#NAME=$(basename $0)
+#PIDFILE=/var/run/lock.sh.pid
+IMG=~/Dev/dotfiles/wallpaper/windows-10-wallpaper-11.png
 
-if [[ $(pgrep -f $NAME) ]]; then
-    echo '$0:already locked'
-else
-    /usr/bin/i3lock-fancy -g -p -f "Noto-Sans" -- maim
-fi
+#/usr/bin/i3lock-fancy -g -p -f "Noto-Sans" -- maim
+/usr/bin/i3lock --show-failed-attempts --image=$IMG

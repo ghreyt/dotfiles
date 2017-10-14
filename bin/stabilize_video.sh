@@ -30,6 +30,7 @@ fi
 
 i=0
 TMPFILE=$(mktemp)
+echo $TMPFILE
 
 for f in $FILES; do
     i=$((i + 1))
@@ -39,22 +40,23 @@ for f in $FILES; do
     #
     # all parameters are currently given default values
     #
-    # - ref: ttps://github.com/georgmartius/vid.stab
+    # - ref: https://github.com/georgmartius/vid.stab
     # - ex: https://www.epifocal.net/blog/video-stabilization-with-ffmpeg
     echo -n "  analyze video..."
-    echo ffmpeg \
+    ffmpeg \
         -i $f \
-        -vf vidstabdetect=shakiness=5:accuracy=15:stepsize=6:mincontrast=0.3:show=0:result="$TMPFILE" \
+        -vf vidstabdetect=shakiness=10:accuracy=15:stepsize=10:mincontrast=0.3:show=0:result="$TMPFILE" \
         -f null - \
         > /dev/null || { echo "error"; exit 1; }
     echo "ok"
 
     echo -n "  transform video..."
-    FN=$(echo ${F%.*})
-    EXT=$(echo ${F##*.})
-    echo ffmpeg \
+    FN=$(echo ${f%.*})
+    #EXT=$(echo ${f##*.})
+    EXT=MP4
+    ffmpeg \
         -i $f \
-        -vf vidstabtransform=input="$TMPFILE":zoom=0:smoothing=10,unsharp=5:5:0.8:3:3:0.4 "${FN}_stab.$EXT" \
+        -vf vidstabtransform=zoom=1:smoothing=30:input="$TMPFILE",unsharp=5:5:0.8:3:3:0.4 -preset slow "${FN}_stab.$EXT" \
         > /dev/null || { echo "error"; exit 1; }
     echo "ok"
 done

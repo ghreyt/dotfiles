@@ -20,7 +20,8 @@
 
 # compton with faster window animation than default
 #compton --backend glx -b -I 0.07 -O 0.07
-compton --backend glx --vsync opengl -b -I 0.07 -O 0.07
+#compton --backend glx --vsync opengl -b -I 0.07 -O 0.07
+compton -b -I 0.07 -O 0.07
 
 # set keyboard key repeat delay
 # otherwise it would be too long
@@ -34,6 +35,7 @@ xset r rate 200
 #pcmanfm --desktop & # with desktop
 
 # show removable disk in notification area
+# udiskie not work properly recently
 udiskie --notify --smart-tray &
 
 # panel
@@ -78,7 +80,7 @@ ibus-daemon -rd --xim &
 
 # lock and try to suspend after 10 minutes in idle state (no user input)
 # suspend is going to be settled if no AC connected
-xautolock -time 10 -locker "~/bin/suspend.sh -p -l ~/bin/lock.sh" &
+#xautolock -time 10 -locker "~/bin/suspend.sh -p -l ~/bin/lock.sh" &
 
 # disable xautolock/screensaver if current window
 # is full-screened or clicked in system tray
