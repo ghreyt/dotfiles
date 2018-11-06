@@ -79,8 +79,6 @@ autocmd FileType javascript
             \ set ts=2 |
             \ set sts=2 |
             \ set sw=2 |
-            \ set expandtab |
-            \ set autoindent |
             \ set fileformat=unix |
 
 " python
@@ -91,8 +89,6 @@ autocmd BufNewFile,BufRead *.py
             \ set sts=4 |
             \ set sw=4 |
             \ set textwidth=79 |
-            \ set expandtab |
-            \ set autoindent |
             \ set fileformat=unix |
 
 " virtual env support
@@ -126,6 +122,51 @@ let g:nerdtree_tabs_no_startup_for_diff = 1
 let g:airline_powerline_fonts = 1 " make airline use symbol of font not ascii (like '<' '>' .. )
 set laststatus=2 " enable airline even with one file opened
 
+" neocomplete
+" -----------
+let g:neocomplete#enable_at_startup = 1
+
+" vim-go
+" ------
+" disable open browser after poting snippet
+let g:go_play_open_browser = 0
+let g:go_fmt_command = 'goimports'
+" enable additional highlighting
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+
+" tagbar
+" ------
+map <F8> :TagbarToggle<CR>
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds' : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
 " indent-guides
 " -------------
 let g:indent_guides_enable_on_vim_startup=1
@@ -133,23 +174,33 @@ let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_auto_colors = 0
 " to resolve unknown error message
 " https://github.com/nathanaelkane/vim-indent-guides/issues/31
-colorscheme default
 hi IndentGuidesOdd  ctermbg=darkgrey
 hi IndentGuidesEven ctermbg=black
-
 
 " personal preference
 " -------------------
 "  * put at the end to overwrite anything done by modules above
 set hlsearch
-set bg=dark
 " set tabwidth 4 spaces
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-map <C-h> gT " previous tab
-map <C-l> gt " next tab
+set autoindent
+set smartindent
+set cursorline
+" color
+if has('gui_running')
+  colorscheme desert " color scheme for gvim
+else
+  colorscheme default " for console vim
+endif
+set bg=dark " this has to be called after colorscheme
+
+" previous tab
+map <C-h> gT
+" next tab
+map <C-l> gt
 " do not remember the last cursor position for git commit
 autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
 

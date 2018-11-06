@@ -77,7 +77,7 @@ Return a list of installed packages or nil for every skipped package."
                           ;'ensime ; scala
                           'deft ; write document
                           'popup-imenu
-                          'dired+
+                          ;'dired+ ; not found
                           'indent-guide ; show indentation line
 						  )
 
@@ -190,8 +190,8 @@ Return a list of installed packages or nil for every skipped package."
 
 ;;; dired+
 ;;; ------
-(require 'dired+)
-(diredp-toggle-find-file-reuse-dir 1)
+;(require 'dired+)
+;(diredp-toggle-find-file-reuse-dir 1)
 
 
 ;;; indent-guide
@@ -662,7 +662,7 @@ Return a list of installed packages or nil for every skipped package."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (magit edts tabbar powerline-evil popup-imenu markdown-mode indent-guide helm go-eldoc git-gutter flycheck-tip evil-magit elpy dired+ deft))))
+    (go-guru edts magit tabbar powerline-evil popup-imenu markdown-mode indent-guide helm go-eldoc git-gutter flycheck-tip evil-magit elpy dired+ deft))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
