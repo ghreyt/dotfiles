@@ -1,0 +1,37 @@
+# $Id$
+# Maintainer: Ionut Biru <ibiru@archlinux.org>
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=openconnect
+pkgver=7.08
+pkgrel=1
+epoch=1
+pkgdesc="Open client for Cisco AnyConnect VPN"
+arch=('x86_64')
+license=('LGPL2.1')
+url="http://www.infradead.org/openconnect.html"
+depends=('libxml2' 'gnutls' 'libproxy' 'vpnc' 'krb5' 'lz4' 'pcsclite')
+makedepends=('intltool' 'python2')
+options=('!emptydirs')
+source=("ftp://ftp.infradead.org/pub/$pkgname/$pkgname-$pkgver.tar.gz"
+        "ignore-too-big-MTU.patch::http://git.infradead.org/users/dwmw2/openconnect.git/patch/9ac5e232214b728f675a44c43e61986ff9245b57")
+md5sums=('ca2ca1f61b8515879b481dcf6ed4366b'
+         '77df4f8c81fe12cb233e41a05b7cd560')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 < ../ignore-too-big-MTU.patch
+}
+
+build() {
+  cd $pkgname-$pkgver
+  PYTHON=/usr/bin/python2 ./configure --prefix=/usr \
+      --sbindir=/usr/bin \
+      --disable-static
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}
